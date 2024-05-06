@@ -1,44 +1,48 @@
 import React, { useState } from "react";
  import "./Formulario.css";
- interface nuevoComentarioInt {
-  title: string,
-  body: string,
-  userId: number,
-}
+import { nuevoComentarioInt } from "../../utils/interfaces";
+
  interface FormCompProps {
   agregarComentario: (nuevosDatos: nuevoComentarioInt) => void;
 }
 const Formulario: React.FC<FormCompProps> = ({agregarComentario}) =>{
-   const [title, setTitle] = useState<string>('');
+   const [name, setname] = useState<string>('');
   const [body, setBody] = useState<string>('');
-  const [userid, setUserid] = useState<number>(0);
- 
+  const [postId, setpostId] = useState<number>(0);
+  const [email, setEmail] = useState<string>('');
 
-  const handletitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+
+  const handlenameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setname(e.target.value);
   };
   
   const handlebodyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBody(e.target.value);
   };
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-  const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlepostIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value); // Convertir el valor a número
-    setUserid(value); // Actualizar el estado con el número
+    setpostId(value); // Actualizar el estado con el número
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Creación de un objeto basado en la interfaz
 const nuevoComentario: nuevoComentarioInt = {
-  title: title,
+  name: name,
   body: body,
-  userId: userid,
-};console.log("Previoooooooo")
+  email,
+  postId: postId,
+};
+
+  console.log("Previoooooooo")
   console.log({nuevoComentario});
     agregarComentario(nuevoComentario);
     setBody('');
-    setTitle('');
-    setUserid(0);
+    setname('');
+    setpostId(0);
   }; 
   
   
@@ -54,15 +58,15 @@ const nuevoComentario: nuevoComentarioInt = {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputNombre1" className="form-label">
-          title
+          name
           </label>
           <input
             type="text"
             className="form-control"
             id="exampleInputNombre1"
             aria-describedby="NombreHelp"
-            value={title}
-            onChange={handletitleChange}
+            value={name}
+            onChange={handlenameChange}
           />
         </div>
         <div className="mb-3">
@@ -77,16 +81,27 @@ const nuevoComentario: nuevoComentarioInt = {
             onChange={handlebodyChange}
           />
         </div>
-
         <div className="mb-3">
-          <label htmlFor="fecha" className="form-label">userId</label>
+          <label htmlFor="exampleInputbody1" className="form-label">
+          email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputbody1"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="postId" className="form-label">postId</label>
           <input 
             type="number"
             className="form-control" 
-            id="fecha" 
-            name="fecha" 
-            value={userid}  
-            onChange={handleUserIdChange}  
+            id="postId" 
+            name="postId" 
+            value={postId}  
+            onChange={handlepostIdChange}  
           />
         </div>
       

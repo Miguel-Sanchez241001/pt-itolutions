@@ -51,18 +51,20 @@ const Lista: React.FC<TableCompProps> = ({ lista }) => {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">title</th>
+            <th scope="col">name</th>
+            <th scope="col">Email</th>
             <th scope="col">body</th>
-            <th scope="col">userId</th>
+            <th scope="col">postId</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((comentario,i:number) => (
             <tr key={i}>
               <th scope="row">{comentario.id}</th>
-              <td>{comentario.title}</td>
-              <td>{recortarTexto(comentario.body, 50)}</td>
-              <td>{comentario.userId}</td>
+              <td>{comentario.name}</td>
+              <td>{comentario.email}</td>
+              <td>{recortarTexto(comentario.body, 20)}</td>
+              <td>{comentario.postId}</td>
             </tr>
           ))}
         </tbody>

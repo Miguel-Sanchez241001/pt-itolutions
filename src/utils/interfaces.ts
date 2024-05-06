@@ -1,16 +1,18 @@
 
 export interface nuevoComentarioInt {
-    title: string,
-    body: string,
-    userId: number,
+  name: string;
+  email: string;
+  body: string;
+  postId: number;
   }
   export interface Comentario {
     id: number;
-    title: string;
+    name: string;
+    email: string;
     body: string;
-    userId: number;
+    postId: number;
   }
-
+ 
   
 export interface TableCompProps {
     actualizar?: boolean;

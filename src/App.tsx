@@ -11,12 +11,12 @@ import { UseHook } from './Hooks/useHook'
 
 const App:React.FC = () => {
  
-  const [comen, setComen] = useState<Comentario>({ id: 0, title: "", body: "", userId: 0 });
-  const ListComentar = UseHook(ENDPOINTS.POSTS);
+  const [comen, setComen] = useState<Comentario>({ id: 0, name: "",email: "", body: "", postId: 0 });
+  const ListComentar = UseHook(ENDPOINTS.COMENT);
 
 
   const agregarComentario = (nuevoComentario: nuevoComentarioInt) => {
-    fetch(ENDPOINTS.POSTS, {
+    fetch(ENDPOINTS.COMENT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,6 @@ const App:React.FC = () => {
     console.log({data});
     console.log({comen})
       setComen(data);
-        console.log("Actualizacion exitosa")
         console.log({comen});
         const ultimoElemento = ListComentar[ListComentar.length - 1];
           if (data.id<= ultimoElemento.id) {
@@ -38,7 +37,8 @@ const App:React.FC = () => {
 
 
         ListComentar.push(data);
-        
+        console.log("Actualizacion exitosa")
+
      })
     .catch((error) => {
       alert('Error:'+ error);
@@ -56,7 +56,7 @@ const App:React.FC = () => {
 
       <Formulario agregarComentario={agregarComentario}/>
       
-      <Lista lista={ListComentar}     />
+      <Lista lista={ListComentar.slice(-50).reverse()}     />
       
       </div>
       
