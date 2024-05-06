@@ -5,27 +5,19 @@ import Formulario from './components/Formulario/Formulario'
 import Lista from './components/Lista/Lista'
 import Footer from './template/Footer/Footer'
 import Navbar from './template/Navbar/Navbar'
+import { ENDPOINTS } from './utils/api'
+import { Comentario, nuevoComentarioInt } from './utils/interfaces'
+import { UseHook } from './Hooks/useHook'
 
-interface nuevoComentarioInt {
-  title: string,
-  body: string,
-  userId: number,
-}
-interface Comentario {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
 const App:React.FC = () => {
   const [actualizar, setActualizar] = useState<boolean>(false); // Control de renderizar componente
 
   const [comen, setComen] = useState<Comentario>({ id: 0, title: "", body: "", userId: 0 });
-
+  const ListComentar = UseHook(ENDPOINTS.POSTS);
 
 
   const agregarComentario = (nuevoComentario: nuevoComentarioInt) => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch(ENDPOINTS.POSTS, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +27,7 @@ const App:React.FC = () => {
     .then((response: Response) => response.json())
     .then((data: Comentario) => {
       setComen(data);
-      console.log(data);
+      alert("Se agrego "+  JSON.stringify(data) );
     })
     .catch((error) => {
       alert('Error:'+ error);
@@ -56,7 +48,7 @@ const App:React.FC = () => {
 
       <Formulario agregarComentario={agregarComentario}/>
       
-      <Lista nuevoComent={comen} actualizar={actualizar}/>
+      <Lista lista={ListComentar} nuevoComent={comen} actualizar={actualizar}/>
       
       </div>
       

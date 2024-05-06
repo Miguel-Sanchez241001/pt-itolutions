@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Lista.css";
 import { Pagination, Table } from "react-bootstrap";
+import { ENDPOINTS } from "../../utils/api";
 
 interface Comentario {
   id: number;
@@ -30,7 +31,7 @@ const Lista: React.FC<TableCompProps> = ({ actualizar,nuevoComent }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
+          ENDPOINTS.POSTS
         );
         const data: Comentario[] = await response.json(); // Especifica el tipo como Comentario[]
         if (nuevoComent.id!== 0) {
