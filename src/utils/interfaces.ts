@@ -13,8 +13,8 @@ export interface nuevoComentarioInt {
 
   
 export interface TableCompProps {
-    actualizar: boolean;
-    nuevoComent:Comentario
+    actualizar?: boolean;
+    nuevoComent?:Comentario
     lista:Comentario[]
 
   }

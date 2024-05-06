@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Lista.css";
 import { Pagination, Table } from "react-bootstrap";
-import { ENDPOINTS } from "../../utils/api";
+ import {   TableCompProps } from "../../utils/interfaces";
 
-interface Comentario {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
-
-interface TableCompProps {
-  actualizar: boolean;
-  nuevoComent:Comentario
-}
+ 
+ 
 
 // Función para recortar el texto del comentario
 const recortarTexto = (texto: string, longitud: number) => {
@@ -24,37 +15,20 @@ const recortarTexto = (texto: string, longitud: number) => {
   }
 };
 
-const Lista: React.FC<TableCompProps> = ({ actualizar,nuevoComent }) => {
-  const [comentarios, setComentarios] = useState<Comentario[]>([]);
+const Lista: React.FC<TableCompProps> = ({ lista }) => {
+  // const [listaComentarios, setListaComentarios] = useState<Comentario[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          ENDPOINTS.POSTS
-        );
-        const data: Comentario[] = await response.json(); // Especifica el tipo como Comentario[]
-        if (nuevoComent.id!== 0) {
-            data.push(nuevoComent);
-        }
-        setComentarios(data);
-        console.log("Data actualziada ");
-        console.log({data});
-      } catch (error) {
-        console.error("Error al obtener los datos:", error);
-      }
-    };
-
-    fetchData();
-  }, [actualizar]);
+    //setListaComentarios(lista) 
+  }, [lista]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const totalItems = comentarios.length;
+  const totalItems = lista.length;
   const totalPages = Math.ceil(totalItems / 10);
 
   const startIndex = (currentPage - 1) * 10;
   const endIndex = startIndex + 10;
-  const currentItems = comentarios.slice(startIndex, endIndex);
+  const currentItems = lista.slice(startIndex, endIndex);
 
   const paginationItems = [];
   for (let number = 1; number <= totalPages; number++) {
@@ -83,8 +57,8 @@ const Lista: React.FC<TableCompProps> = ({ actualizar,nuevoComent }) => {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((comentario) => (
-            <tr key={comentario.id}>
+          {currentItems.map((comentario,i:number) => (
+            <tr key={i}>
               <th scope="row">{comentario.id}</th>
               <td>{comentario.title}</td>
               <td>{recortarTexto(comentario.body, 50)}</td>

@@ -33,8 +33,8 @@ const nuevoComentario: nuevoComentarioInt = {
   title: title,
   body: body,
   userId: userid,
-};
-  
+};console.log("Previoooooooo")
+  console.log({nuevoComentario});
     agregarComentario(nuevoComentario);
     setBody('');
     setTitle('');

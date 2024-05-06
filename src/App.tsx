@@ -10,8 +10,7 @@ import { Comentario, nuevoComentarioInt } from './utils/interfaces'
 import { UseHook } from './Hooks/useHook'
 
 const App:React.FC = () => {
-  const [actualizar, setActualizar] = useState<boolean>(false); // Control de renderizar componente
-
+ 
   const [comen, setComen] = useState<Comentario>({ id: 0, title: "", body: "", userId: 0 });
   const ListComentar = UseHook(ENDPOINTS.POSTS);
 
@@ -26,14 +25,23 @@ const App:React.FC = () => {
     })
     .then((response: Response) => response.json())
     .then((data: Comentario) => {
+    console.log("Data respeusta API");
+    console.log({data});
+    console.log({comen})
       setComen(data);
-      alert("Se agrego "+  JSON.stringify(data) );
-    })
+        console.log("Actualizacion exitosa")
+        console.log({comen});
+        const ultimoElemento = ListComentar[ListComentar.length - 1];
+          if (data.id<= ultimoElemento.id) {
+            data.id = ultimoElemento.id+1;
+          }
+
+
+        ListComentar.push(data);
+        
+     })
     .catch((error) => {
       alert('Error:'+ error);
-    })
-    .finally(() => {
-      setActualizar(!actualizar);
     });
     
   };
@@ -48,7 +56,7 @@ const App:React.FC = () => {
 
       <Formulario agregarComentario={agregarComentario}/>
       
-      <Lista lista={ListComentar} nuevoComent={comen} actualizar={actualizar}/>
+      <Lista lista={ListComentar}     />
       
       </div>
       
