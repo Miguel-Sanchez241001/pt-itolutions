@@ -1,22 +1,10 @@
-/* app.css */
-
-/* Reset de márgenes y rellenos */
-body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-}
-
-/* Estilos de la fuente */
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
+ 
 /* Estilos generales */
-.container {
-    width: 100vw;
+.container-box {
+    width: 100%;
     height: 80vh;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 30vw 70vw;
     padding: 20px 15px;
     
 }
